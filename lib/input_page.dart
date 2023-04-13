@@ -15,29 +15,10 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
 
+  Gender? selectedGender;
+
   Color maleCardColor = inActiveCardColor;
   Color femaleCardColor = inActiveCardColor;
-
-  void updateColor(Gender selectedGender) {
-    if(selectedGender == Gender.male) {
-      if(maleCardColor == inActiveCardColor) {
-        maleCardColor = activeCardColor;
-        femaleCardColor = inActiveCardColor;
-      }else {
-        maleCardColor = inActiveCardColor;
-      }
-    }
-
-    if(selectedGender == Gender.female) {
-      if(femaleCardColor == inActiveCardColor) {
-      femaleCardColor = activeCardColor;
-      maleCardColor = inActiveCardColor;
-      }else{
-      femaleCardColor = inActiveCardColor;
-      }
-    }
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +34,11 @@ class _InputPageState extends State<InputPage> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        updateColor(Gender.male);
+                        selectedGender = Gender.male;
                       });
                     },
                     child: ReusableCard(
-                        maleCardColor,
+                        selectedGender == Gender.male ? activeCardColor : inActiveCardColor,
                         IconContent(text:'MALE',icon: FontAwesomeIcons.mars)
                     ),
                   )
@@ -66,11 +47,11 @@ class _InputPageState extends State<InputPage> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        updateColor(Gender.female);
+                        selectedGender = Gender.female;
                       });
                     },
                     child: ReusableCard(
-                        femaleCardColor,
+                        selectedGender == Gender.female ? activeCardColor : inActiveCardColor,
                         IconContent(text:'FEMALE',icon: FontAwesomeIcons.venus)
               ),
                   )
